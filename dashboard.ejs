@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome, <%= user.username %></h1>
+    <p style="font-size: 14px; color: #52606d;"><%= user.email %></p>
+
+    <p style="margin-top: 24px; font-size: 14px;">
+      Two-factor authentication:
+      <span class="badge <%= user.totp_enabled ? 'on' : 'off' %>">
+        <%= user.totp_enabled ? 'Enabled' : 'Disabled' %>
+      </span>
+    </p>
+
+    <% if (user.totp_enabled) { %>
+      <form method="POST" action="/2fa/disable">
+        <button type="submit" class="danger-btn">Disable 2FA</button>
+      </form>
+    <% } else { %>
+      <form method="GET" action="/2fa/setup">
+        <button type="submit">Enable 2FA</button>
+      </form>
+    <% } %>
+
+    <form method="POST" action="/logout">
+      <button type="submit" class="secondary-btn">Log out</button>
+    </form>
+  </div>
+</body>
+</html>

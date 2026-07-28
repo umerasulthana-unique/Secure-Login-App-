@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Two-Factor Verification</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Enter your 2FA code</h1>
+    <p style="font-size: 14px; color: #52606d;">Open your authenticator app and enter the 6-digit code.</p>
+
+    <% if (error) { %>
+      <div class="errors"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/login/2fa" autocomplete="off">
+      <label for="token">Authentication code</label>
+      <input type="text" id="token" name="token" inputmode="numeric" pattern="[0-9]*" maxlength="6" required autofocus>
+
+      <button type="submit">Verify</button>
+    </form>
+  </div>
+</body>
+</html>
